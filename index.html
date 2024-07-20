@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* CSS yang sudah ada */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      background: url('./images/work background.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      padding-top: 60px;
+      font-family: monospace;
+    }
+
+    .navbar {
+      overflow: hidden;
+      background-color: #3887BE;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .navbar .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .navbar a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 10px 20px;
+      text-decoration: none;
+    }
+
+    .navbar a:hover {
+      background-color: #ffffff;
+      color: black;
+    }
+
+    .navbar a.active {
+      background-color: #ffffff;
+      color: black;
+    }
+
+    .navbar .right {
+      float: right;
+    }
+
+    .navbar .profil img {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 2;
+    }
+
+    .login-form {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f6f4f4;
+      padding: 20px;
+      border: 1px solid #ccc;
+      z-index: 3;
+      max-width: 400px;
+      width: 80%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      color: #1c1a1a;
+    }
+
+    .login-form h2 {
+      text-align: center;
+    }
+
+    .login-form form {
+      text-align: center;
+    }
+
+    .login-form label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .login-form input[type="email"],
+    .login-form input[type="password"] {
+      width: calc(100% - 20px);
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #1c1a1a;
+      border-radius: 4px;
+    }
+
+    .login-form input[type="submit"] {
+      background-color: #333;
+      color: rgb(236, 237, 229);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .login-form input[type="submit"]:hover {
+      background-color: #555;
+    }
+
+    .job-ad {
+      background-color: #fff;
+      border: 1px solid #ede7e7;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 20px;
+      padding: 20px;
+    }
+
+    .job-ad img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      color: #f8f8f8;
+      height: calc(100vh - 60px);
+    }
+
+    .search-container .search-text {
+      margin: auto;
+    }
+
+    .search-container .search-text h1,
+    .search-container .search-text p {
+      text-shadow: 2px 2px 4px rgba(2, 8, 15, 0.5);
+    }
+
+    .search-container img {
+      display: none;
+    }
+
+    .search-container input[type="text"],
+    .search-container select {
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .search-container button {
+      padding: 10px 20px;
+      background-color: orange;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .search-container button:hover {
+      background-color: darkorange;
+    }
+
+    .footer {
+      background-color: #3887BE;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .footer a {
+      color: #ff6f61;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Gaya untuk burger menu */
+    .navbar .burger {
+      display: none;
+      float: right;
+      cursor: pointer;
+      padding: 10px 20px;
+    }
+
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 5px 0;
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+      .navbar a, .navbar .right {
+        float: none;
+        display: none;
+        text-align: left;
+      }
+
+      .navbar .right {
+        text-align: center;
+      }
+
+      .navbar .burger {
+        display: block;
+      }
+
+      .search-container img {
+        width: 100%;
+      }
+
+      .search-container .search-text {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar a {
+        padding: 10px;
+        text-align: center;
+      }
+
+      .search-container input[type="text"],
+      .search-container select,
+      .search-container button {
+        width: 100%;
+        margin: 5px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <span class="logo">
+    <img src="./images/logo.jpg" alt="Logo" align="left">
+  </span>
+  <a href="index.html">Home</a>
+  <a href="loker.html">Info Lowongan Kerja</a>
+  <a href="about.html">About</a>
+  <a href="FAQ.html">FAQ</a>
+  <a href="contact.html">Contact</a>
+  
+  <a href="#" class="right" id="login-link">
+    <span class="profil">
+      <img src="./images/profil.jpg" alt="Login">
+    </span>
+  </a>
+  <div class="burger" id="burger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<div class="search-container">
+  <div class="search-text">
+    <h1>Bingung Cari Kerja?</h1>
+    <h1>Di JOBFINDER aja:D</h1>
+    <p>Temukan pekerjaan yang akan Anda sukai.</p>
+    <select>
+      <option>Kategori Pekerjaan</option>
+      <option>Frontend Developer</option>
+      <option>Backend Developer</option>
+      <option>UI/UX Designer</option>
+      <option>Digital Marketing Spesialis</option>
+      <option>Data Analyst</option>
+    </select>
+    <select>
+      <option>Lokasi</option>
+      <option>Jakarta</option>
+      <option>Bali</option>
+      <option>Bandung</option>
+      <option>Surabaya</option>
+      <option>Yogyakarta</option>
+    </select>
+    <button type="button">Cari</button>
+  </div>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="login-form" id="login-form">
+  <h2>Login</h2>
+  <form action="#">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <input type="submit" value="Login">
+  </form>
+</div>
+
+<div class="footer">
+  <p>&copy; 2024 Job Portal. All rights reserved.</p>
+</div>
+
+<script>
+  // Fungsi untuk menampilkan dan menyembunyikan form login serta overlay
+  document.getElementById('login-link').addEventListener('click', function() {
+    var overlay = document.getElementById('overlay');
+    var loginForm = document.getElementById('login-form');
+    
+    overlay.style.display = 'block';
+    loginForm.style.display = 'block';
+  });
+
+  // Fungsi untuk menyembunyikan form login dan overlay saat klik di luar form
+  document.getElementById('overlay').addEventListener('click', function() {
+    var overlay = document.getElementById('overlay');
+    var loginForm = document.getElementById('login-form');
+    
+    overlay.style.display = 'none';
+    loginForm.style.display = 'none';
+  });
+  
+  // Fungsi untuk burger menu
+  document.getElementById('burger').addEventListener('click', function() {
+    var navLinks = document.querySelectorAll('.navbar a');
+    navLinks.forEach(function(link) {
+      if (link.style.display === 'block') {
+        link.style.display = 'none';
+      } else {
+        link.style.display = 'block';
+      }
+    });
+  });
+
+  // Highlight active link
+  var navLinks = document.querySelectorAll('.navbar a');
+  var currentUrl = window.location.href;
+  navLinks.forEach(function(link) {
+    if (link.href === currentUrl) {
+      link.classList.add('active');
+    }
+  });
+</script>
+
+</body>
+</html>

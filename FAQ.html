@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: monospace;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url(./images/allbackground.jpg);
+  }
+
+  .navbar {
+    overflow: hidden;
+    background-color: #3887BE;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }
+  .navbar .logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    text-decoration: none;
+  }
+  .navbar a:hover {
+    background-color: #ffffff;
+    color: black;
+  }
+  .navbar a.active {
+    background-color: #ffffff;
+    color: black;
+  }
+  .navbar .right {
+    float: right;
+  }
+  .navbar .profil img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+  }
+  .login-form {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ccc;
+    z-index: 3;
+    max-width: 400px;
+    width: 80%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .login-form h2 {
+    text-align: center;
+  }
+  .login-form form {
+    text-align: center;
+  }
+  .login-form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  .login-form input[type="email"],
+  .login-form input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .login-form input[type="submit"] {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .login-form input[type="submit"]:hover {
+    background-color: #555;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .faq {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    font-family:monospace;
+  }
+  .faq h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .faq-item {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .faq-item h2 {
+    margin-bottom: 10px;
+  }
+  .faq-item .faq-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .faq-item .faq-columns div {
+    flex: 1;
+  }
+  .footer {
+    background-color: #3887BE;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: auto;
+  }
+  .footer a {
+    color: #ff6f61;
+    text-decoration: none;
+  }
+  .footer a:hover {
+    text-decoration: underline;
+  }
+ /* Gaya untuk burger menu */
+.navbar .burger {
+  display: none;
+  float: right;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.burger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 5px 0;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .navbar a, .navbar .right {
+    float: none;
+    display: none;
+    text-align: left;
+  }
+
+  .navbar .right {
+    text-align: center;
+  }
+
+  .navbar .burger {
+    display: block;
+  }
+
+  .search-container img {
+    width: 100%;
+  }
+
+  .search-container .search-text {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar a {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .search-container input[type="text"],
+  .search-container select,
+  .search-container button {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <span class="logo">
+    <img src="./images/logo.jpg" alt="Logo" align="left">
+  </span>
+  <a href="index.html">Home</a>
+  <a href="loker.html">Info Lowongan Kerja</a>
+  <a href="about.html">About</a>
+  <a href="FAQ.html">FAQ</a>
+  <a href="contact.html">Contact</a>
+  <a href="#" class="right" id="login-link">
+    <span class="profil">
+      <img src="./images/profil.jpg" alt="Login">
+    </span>
+  </a>
+  <div class="burger" id="burger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<main class="container">
+  <section class="faq">
+    <h1>Frequently Asked Questions</h1>
+    <div class="faq-item">
+      <h2>Bagaimana cara mendaftar lowongan pekerjaan di JobFinder?</h2>
+      <div class="faq-columns">
+        <div>
+          <p>Anda dapat mendaftar lowongan pekerjaan dengan membuat akun di situs kami dan melengkapi profil Anda.</p>
+          <p>Setelah itu, Anda bisa melamar pekerjaan yang tersedia.</p>
+        </div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <h2>Apakah layanan di JobFinder gratis?</h2>
+      <div class="faq-columns">
+        <div>
+          <p>Ya, semua layanan untuk pencari kerja di JobFinder adalah gratis.</p>
+          <p>Kami menyediakan platform untuk membantu Anda menemukan pekerjaan yang sesuai tanpa biaya.</p>
+        </div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <h2>Bagaimana cara menghubungi tim JobFinder?</h2>
+      <div class="faq-columns">
+        <div>
+          <p>Anda dapat menghubungi kami melalui halaman <a href="contact.html">Contact</a> di situs kami.</p>
+          <p>Kami siap membantu Anda dengan pertanyaan atau masalah yang Anda hadapi.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Tambahkan lebih banyak pertanyaan dan jawaban di sini -->
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-content">
+    &copy; 2024 Job Portal. All rights reserved.
+  </div>
+</footer>
+
+<!-- Overlay untuk efek gelap di latar belakang -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Formulir login di tengah halaman -->
+<div class="login-form" id="login-form">
+  <h2>Login</h2>
+  <form action="#">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <input type="submit" value="Login">
+  </form>
+</div>
+
+<script>
+// Fungsi untuk menampilkan dan menyembunyikan form login serta overlay
+document.getElementById('login-link').addEventListener('click', function() {
+  var overlay = document.getElementById('overlay');
+  var loginForm = document.getElementById('login-form');
+  
+  overlay.style.display = 'block';
+  loginForm.style.display = 'block';
+});
+
+// Fungsi untuk menyembunyikan form login dan overlay saat klik di luar form
+document.getElementById('overlay').addEventListener('click', function() {
+  var overlay = document.getElementById('overlay');
+  var loginForm = document.getElementById('login-form');
+  
+  overlay.style.display = 'none';
+  loginForm.style.display = 'none';
+});
+
+ // Fungsi untuk burger menu
+ document.getElementById('burger').addEventListener('click', function() {
+    var navLinks = document.querySelectorAll('.navbar a');
+    navLinks.forEach(function(link) {
+      if (link.style.display === 'block') {
+        link.style.display = 'none';
+      } else {
+        link.style.display = 'block';
+      }
+    });
+  });
+
+  // Highlight active link
+  var navLinks = document.querySelectorAll('.navbar a');
+  var currentUrl = window.location.href;
+  navLinks.forEach(function(link) {
+    if (link.href === currentUrl) {
+      link.classList.add('active');
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+<style>
+  *{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+    font-family: monospace;
+    line-height: 1.6;
+  }
+/* Style the navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  
+}
+.navbar .logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+/* Navigation bar links */
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+/* Change color on hover */
+.navbar a:hover {
+  background-color: #ffffff;
+  color: black;
+}
+.navbar a.active {
+    background-color: #ffffff;
+    color: black;
+
+}
+/* Move login link to the right */
+.navbar .right {
+  float: right; /* Menggunakan float right untuk meletakkan ke kanan */
+}
+.navbar .profil img {
+  width: 20px; /* Sesuaikan ukuran gambar avatar sesuai kebutuhan */
+  height: 20px;
+  border-radius: 50%; /* Agar gambar menjadi lingkaran */
+  margin-right: 10px; /* Margin kanan untuk memisahkan gambar dengan teks */
+}
+.navbar {
+  position: sticky;
+  top: 0;
+}
+
+/* Styling for overlay */
+.overlay {
+  display: none;
+  position: fixed; /* Tetap di tempat */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Transparansi hitam */
+  z-index: 2; /* Lebih tinggi dari konten utama */
+}
+
+/* Styling for login form */
+.login-form {
+  display: none;
+  position: fixed; /* Tetap di tempat */
+  top: 50%; /* Posisi vertikal di tengah */
+  left: 50%; /* Posisi horizontal di tengah */
+  transform: translate(-50%, -50%); /* Untuk memposisikan ke tengah tepat */
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ccc;
+  z-index: 3; /* Lebih tinggi dari overlay */
+  max-width: 400px; /* Lebar maksimum form */
+  width: 80%; /* Lebar form */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+}
+
+.login-form h2 {
+  text-align: center;
+}
+
+.login-form form {
+  text-align: center;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  width: calc(100% - 20px);
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-form input[type="submit"] {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-form input[type="submit"]:hover {
+  background-color: #555;
+}
+@media (max-width: 768px) {
+    .navbar a, .navbar .right {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+
+    .navbar .right {
+      text-align: center;
+    }
+
+    .search-container img {
+      width: 100%;
+    }
+
+    .search-container .search-text {
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .navbar a {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .search-container input[type="text"],
+    .search-container select,
+    .search-container button {
+      width: 100%;
+      margin: 5px 0;
+    }
+  }
+
+
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <span class="logo" >
+    <img src="./images/logo.jpg" alt="Logo=" align="left">
+  </span>
+  <a href="index.html">Home</a>
+  <a href="loker.html">Info Lowongan Kerja</a>
+  <a href="about.html">About</a>
+  <a href="FAQ.html">FAQ</a>
+  <a href="contact.html">Contact</a>
+  <a href="#" class="right" id="login-link">
+    <span class="profil">
+      <img src="./images/profil.jpg" alt="Login">
+    </span>
+    
+  </a>
+</div>
+
+<!-- Overlay untuk efek gelap di latar belakang -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Formulir login di tengah halaman -->
+<div class="login-form" id="login-form">
+  <h2>Login</h2>
+  <form action="#">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <input type="submit" value="Login">
+  </form>
+</div>
+
+<script>
+// Fungsi untuk menampilkan dan menyembunyikan form login serta overlay
+document.getElementById('login-link').addEventListener('click', function() {
+  var overlay = document.getElementById('overlay');
+  var loginForm = document.getElementById('login-form');
+  
+  overlay.style.display = 'block';
+  loginForm.style.display = 'block';
+});
+
+// Fungsi untuk menyembunyikan form login dan overlay saat klik di luar form
+document.getElementById('overlay').addEventListener('click', function() {
+  var overlay = document.getElementById('overlay');
+  var loginForm = document.getElementById('login-form');
+  
+  overlay.style.display = 'none';
+  loginForm.style.display = 'none';
+});
+var navLinks = document.querySelectorAll('.navbar a');
+  var currentUrl = window.location.href;
+
+  navLinks.forEach(function(link) {
+    if (link.href === currentUrl) {
+      link.classList.add('active');
+    }
+  });
+</script>
+
+</body>
+</html>
